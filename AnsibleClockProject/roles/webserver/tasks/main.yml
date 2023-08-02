@@ -1,0 +1,32 @@
+---
+# - name: Update Debian system
+#   apt:
+#     update_cache: yes
+#     upgrade: yes
+
+- name: Create remote folder
+  file:
+    path: "{{ remote_folder }}"
+    state: directory
+    mode: '0755'    
+
+- name: Upload files to remote folder
+  copy:
+    src: "{{ app_folder }}" 
+    dest: "{{ remote_folder }}"
+  register: upload_result
+
+- name: Display upload results
+  debug:
+    var: upload_result
+
+- name: Set the environment variables
+  shell: |
+    export PORT=80
+  args:
+    executable: /bin/bash
+
+- name: Run app.py
+  command: python3 "{{ remote_folder }}/app/app.py"
+  async: 300  # Set a timeout value (in seconds) for the task (adjust as needed)
+  poll: 0     # Check the task status repeatedly until the timeout is reached

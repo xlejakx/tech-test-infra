@@ -1,0 +1,7 @@
+---
+- name: Update Debian and Upload Files
+  hosts: webservers
+  become: true
+
+  roles:
+    - webserver

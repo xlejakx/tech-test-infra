@@ -1,0 +1,7 @@
+---
+- name: killer
+  hosts: webservers
+  become: true
+
+  roles:
+    - killer
