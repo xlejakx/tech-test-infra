@@ -2,5 +2,5 @@
 
 ~~~bash
 docker build -t ansible .
-docker run -it --rm -v .:/ansible ansible infra.yml
+docker run -it --rm -v .:/ansible ansible
 ~~~
